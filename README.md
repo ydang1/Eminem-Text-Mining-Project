@@ -292,7 +292,8 @@ y_test=y_test.values
 y_train=y_train.astype('int64')
 y_test=y_test.astype('int64')
 
-#Convert the text corpus into the feature vectors
+- Convert the text corpus into the feature vectors
+```
 from sklearn.feature_extraction.text import TfidfTransformer
 #from sklearn.feature_extraction.text import TfidfVectorizer
 vectorizer = TfidfVectorizer(max_features=1000, lowercase=True, analyzer='word',stop_words='english',ngram_range=(1,3))
