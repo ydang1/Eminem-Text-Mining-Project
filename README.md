@@ -209,6 +209,64 @@ eminem['text']=eminem['text'].apply(lambda x: ' '.join([st.stem(word) for word i
 from textblob import Word
 eminem['text']=eminem['text'].apply(lambda x: ' '.join([Word(word).lemmatize() for word in x.split()]))
 ```
+- Advance Text Processing
+```
+#Term frequency
+tf1=(eminem['text']).apply(lambda x: pd.value_counts(x.split(' ')))
+tf1 = tf1.fillna(0)
+tf1['total term'] = np.sum(tf1, axis = 1)
+tf1 = tf1.iloc[:,:-1].div(tf1['total term'], axis = 0)
+
+#inverse term frequency
+IDF = pd.DataFrame()
+for i, word in enumerate(tf1.columns):
+    IDF.loc[i,'IDF'] = np.log(eminem.shape[0]/(len(eminem[eminem['text'].str.contains(word)])))
+IDF = IDF.T.values
+DF_IDF = tf1.mul(IDF, axis = 1)
+
+    
+#Inverse Document Frequency
+for i,word in enumerate(tf1['words']):
+    tf1.loc[i,'idf']=np.log(eminem.shape[0]/len(eminem[eminem['text'].str.contains(word)]))
+
+#Term Frequency-Inverse Document Frequency(TF-IDF)
+tf1['tfidf']=tf1['tf']*tf1['idf']    
+```
+- Use sklearn to calcuate TF andf IDF（less amount of code and less time complexity）
+```
+##use sklearn to calculate TF and IDF
+from sklearn.feature_extraction.text import TfidfVectorizer
+tfidf=TfidfVectorizer(max_features=1000, lowercase=True, analyzer='word',stop_words='english',ngram_range=(1,1))
+train_vect=tfidf.fit_transform(eminem['text'])
+train_vect
+```
+- Bag of Words (two similar text fields will contain similar kind of words, and will therefore have a similar bag of words. Further, that from the text alone we can learn something about the meaning of the document.)
+``` 
+##bag of words
+from sklearn.feature_extraction.text import CountVectorizer
+bow=CountVectorizer(max_features=1000, lowercase=True, ngram_range=(1,1), analyzer='word')
+train_bow=bow.fit_transform(eminem['text'])
+train_bow
+```
+- Sentiment Analysis
+```
+#Sentiment Analysis
+eminem['sentiment']=eminem['text'].apply(lambda x: TextBlob(x).sentiment[0])
+```
+- Word Embeddings(Word Embedding is the representation of text in the form of vectors. The underlying idea here is that similar words will have a minimum distance between their vectors.)
+```
+#Word Embeddings
+from gensim.scripts.glove2word2vec import glove2word2vec
+glove_input_file='glove.6B.100d.txt'
+word2vec_output_file='glove.6B.100d.txt.word2vec'
+glove2word2vec(glove_input_file, word2vec_output_file)
+```
+
+  
+
+
+
+
 
 
 
