@@ -255,12 +255,61 @@ eminem['sentiment']=eminem['text'].apply(lambda x: TextBlob(x).sentiment[0])
 ```
 - Word Embeddings(Word Embedding is the representation of text in the form of vectors. The underlying idea here is that similar words will have a minimum distance between their vectors.)
 ```
-#Word Embeddings
+# Word Embeddings
 from gensim.scripts.glove2word2vec import glove2word2vec
 glove_input_file='glove.6B.100d.txt'
 word2vec_output_file='glove.6B.100d.txt.word2vec'
 glove2word2vec(glove_input_file, word2vec_output_file)
 ```
+-build a predictive model
+```
+#split data
+eminem_model=eminem[['text','sentiment']]
+from sklearn.model_selection import train_test_split
+X=eminem_model['text']
+y=eminem_model['sentiment']
+X_train, X_test,y_train,y_test=train_test_split(X,y,test_size=0.3)
+y_train=y_train.reset_index()
+y_train=y_train.drop(columns=['index'])
+for i in range(len(y_train)):
+    if y_train['sentiment'].iloc[i]>0:
+         y_train['sentiment'].iloc[i]=1
+    else:
+        y_train['sentiment'].iloc[i]=0
+
+y_test=y_test.reset_index()
+y_test=y_test.drop(columns=['index'])
+for i in range(len(y_test)):
+    if y_test['sentiment'].iloc[i]>0:
+         y_test['sentiment'].iloc[i]=1
+    else:
+        y_test['sentiment'].iloc[i]=0    
+        
+X_train=X_train.values
+y_train=y_train.values
+X_test=X_test.values
+y_test=y_test.values
+y_train=y_train.astype('int64')
+y_test=y_test.astype('int64')
+
+#Convert the text corpus into the feature vectors
+from sklearn.feature_extraction.text import TfidfTransformer
+#from sklearn.feature_extraction.text import TfidfVectorizer
+vectorizer = TfidfVectorizer(max_features=1000, lowercase=True, analyzer='word',stop_words='english',ngram_range=(1,3))
+train_vectors = vectorizer.fit_transform(X_train)
+test_vectors = vectorizer.transform(X_test)
+print(train_vectors.shape)
+
+from sklearn.naive_bayes import MultinomialNB
+
+clf = MultinomialNB()
+clf.fit(train_vectors, y_train)
+
+from sklearn.metrics import accuracy_score
+predicted=clf.predict(test_vectors)
+accuracy_score(y_test,predicted)
+```
+
 
   
 
