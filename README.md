@@ -114,7 +114,7 @@ eminem_new=eminem.dropna()
 eminem_new.to_csv('eminem_new.csv')
 ```
 
-## 2. text mining
+## 2. text mining：
 - impot basic package and load data to pandas
 ```
 import pandas as pd
@@ -159,12 +159,12 @@ eminem['hashtag']=eminem['text'].apply(lambda x: len([x for x in str(x).split(' 
 #number of numerics
 eminem['numeric_count']=eminem['text'].apply(lambda x:len([x for x in x.split(' ')if x.isdigit()]))
 ```
--Number of Uppercase words
+- Number of Uppercase words
 ```
 #Number of Uppercase words
 eminem['uppercase_count']=eminem['text'].apply(lambda x:len([x for x in x.split(' ')if x.isupper()]))
 ```
--Basic Pre-processing
+- Basic Pre-processing
 ```
 ##Lower Case
 eminem['text']=eminem['text'].apply(lambda x: " ".join(x.lower() for x in x.split()))
@@ -186,6 +186,7 @@ freq_least=pd.Series(' '.join(eminem['text']).split()).value_counts()[-10:]
 freq_least=list(freq_least.index)
 eminem['text']=eminem['text'].apply(lambda x: ' '.join([x for x in x.split() if x not in freq_least]))
 ```
+
 
 
 
