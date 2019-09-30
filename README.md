@@ -208,6 +208,10 @@ eminem['text']=eminem['text'].apply(lambda x: ' '.join([st.stem(word) for word i
 #Lemmatization (Lemmatization is a more effective option than stemming because it converts the word into its root word, rather than just stripping the suffices. It makes use of the vocabulary and does a morphological analysis to obtain the root word. Therefore, we usually prefer using lemmatization over stemming.)
 from textblob import Word
 eminem['text']=eminem['text'].apply(lambda x: ' '.join([Word(word).lemmatize() for word in x.split()]))
+```
+
+
+
 
 
 
