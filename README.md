@@ -314,6 +314,12 @@ predicted=clf.predict(test_vectors)
 accuracy_score(y_test,predicted)
 ```
 
+# Future Improvement
+1. Add mnore visualizations to visualize the term frequencies pattern. 
+2. The model has average 74.21% of accuracy which is not robust, considered using cross validation for model selection feature selections to decrease multicollinearity.   
+3. Sample size is relative small, consider increases the sample size in the future.
+
+
 
   
 
