@@ -261,7 +261,7 @@ glove_input_file='glove.6B.100d.txt'
 word2vec_output_file='glove.6B.100d.txt.word2vec'
 glove2word2vec(glove_input_file, word2vec_output_file)
 ```
--build a predictive model
+- build a predictive model
 #### split train and test data
 ```
 #split data
