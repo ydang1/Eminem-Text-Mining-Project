@@ -262,6 +262,7 @@ word2vec_output_file='glove.6B.100d.txt.word2vec'
 glove2word2vec(glove_input_file, word2vec_output_file)
 ```
 -build a predictive model
+#### split train and test data
 ```
 #split data
 eminem_model=eminem[['text','sentiment']]
@@ -291,8 +292,8 @@ X_test=X_test.values
 y_test=y_test.values
 y_train=y_train.astype('int64')
 y_test=y_test.astype('int64')
-
-- Convert the text corpus into the feature vectors
+```
+#### Convert the text corpus into the feature vectors
 ```
 from sklearn.feature_extraction.text import TfidfTransformer
 #from sklearn.feature_extraction.text import TfidfVectorizer
@@ -300,7 +301,9 @@ vectorizer = TfidfVectorizer(max_features=1000, lowercase=True, analyzer='word',
 train_vectors = vectorizer.fit_transform(X_train)
 test_vectors = vectorizer.transform(X_test)
 print(train_vectors.shape)
-
+```
+#### build naive_bayes model
+```
 from sklearn.naive_bayes import MultinomialNB
 
 clf = MultinomialNB()
