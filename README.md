@@ -302,7 +302,7 @@ train_vectors = vectorizer.fit_transform(X_train)
 test_vectors = vectorizer.transform(X_test)
 print(train_vectors.shape)
 ```
-#### build naive_bayes model
+#### build naive_bayes model to test the model performance
 ```
 from sklearn.naive_bayes import MultinomialNB
 
