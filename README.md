@@ -194,7 +194,23 @@ eminem['text']=eminem['text'].apply(lambda x: ' '.join([x for x in x.split() if 
 2. Eminem sounds contain total 179 stopwords, most of those stop words are in the same root but different stemming.(e.g."hadn't","hadn'","hasn't","haven'","haven't")
 
 ```
-- spelling correction ( spelling correction is a useful pre-processing step because this also will help us in reducing multiple copies of words. For example, “Analytics” and “analytcs” will be treated as different words even if they are used in the same sense.)
+#Spelling Correction ( spelling correction is a useful pre-processing step because this also will help us in reducing multiple copies of words. For example, “Analytics” and “analytcs” will be treated as different words even if they are used in the same sense.)
+
+#Tokenization
+from textblob import TextBlob
+TextBlob(eminem['text'][1]).words
+
+#Stemming
+from nltk.stem import PorterStemmer
+st=PorterStemmer()
+eminem['text']=eminem['text'].apply(lambda x: ' '.join([st.stem(word) for word in x.split()]))
+
+#Lemmatization (Lemmatization is a more effective option than stemming because it converts the word into its root word, rather than just stripping the suffices. It makes use of the vocabulary and does a morphological analysis to obtain the root word. Therefore, we usually prefer using lemmatization over stemming.)
+from textblob import Word
+eminem['text']=eminem['text'].apply(lambda x: ' '.join([Word(word).lemmatize() for word in x.split()]))
+
+
+
 
 
 
