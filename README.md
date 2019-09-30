@@ -253,7 +253,7 @@ train_bow
 #Sentiment Analysis
 eminem['sentiment']=eminem['text'].apply(lambda x: TextBlob(x).sentiment[0])
 ```
-- Word Embeddings(Word Embedding is the representation of text in the form of vectors. The underlying idea here is that similar words will have a minimum distance between their vectors.)
+- Word Embeddings (Word Embedding is the representation of text in the form of vectors. The underlying idea here is that similar words will have a minimum distance between their vectors.)
 ```
 # Word Embeddings
 from gensim.scripts.glove2word2vec import glove2word2vec
