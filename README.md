@@ -115,7 +115,7 @@ eminem_new.to_csv('eminem_new.csv')
 ```
 
 ## 2. text mining：
-- impot basic package and load data to pandas
+- Impot basic package and load data to pandas
 ```
 import pandas as pd
 import numpy as np
@@ -132,7 +132,7 @@ eminem['Year']=eminem['Year'].astype('int64')
 eminem['word_count']=eminem['text'].apply(lambda x: len(str(x).split(' ')))
 eminem=eminem.rename(columns={'Text_lenght':'Character_count'})
 ```
-- average Word Length
+- Average Word Length
 ```
 def avg_text(data):
     data=data.split(' ')
@@ -140,7 +140,7 @@ def avg_text(data):
     
 eminem['avg_text']=eminem['text'].apply(lambda x: avg_text(x))
 ```
-- remove stopword
+- Remove Stopword
 ```
 import nltk
 nltk.download('stopwords')
@@ -148,18 +148,18 @@ from nltk.corpus import stopwords
 stop=stopwords.words('english')
 eminem['stopwords']=eminem['text'].apply(lambda x:len([x for x in x.split(' ') if x in stop]))
 ```
-- number of special characters
+- Number of Special Characters
 ```
 #number of special characters
 #hashtag
 eminem['hashtag']=eminem['text'].apply(lambda x: len([x for x in str(x).split(' ') if x.startswith('#')]))
 ```
-- number of numerics
+- Number of Numerics
 ```
 #number of numerics
 eminem['numeric_count']=eminem['text'].apply(lambda x:len([x for x in x.split(' ')if x.isdigit()]))
 ```
-- Number of Uppercase words
+- Number of Uppercase Words
 ```
 #Number of Uppercase words
 eminem['uppercase_count']=eminem['text'].apply(lambda x:len([x for x in x.split(' ')if x.isupper()]))
@@ -191,7 +191,10 @@ eminem['text']=eminem['text'].apply(lambda x: ' '.join([x for x in x.split() if 
 
 ### findings:
 1. Eminem uses a lot of negative words such as 'shit','fuck'. The most least frequent words are those word which is hard to put in rap lyrics because it seems to be hard to rhyme the flow.
-2. Eminem sounds contain total 179 stopwords, most of those stop word are in with the same root but different stemming.
+2. Eminem sounds contain total 179 stopwords, most of those stop words are in the same root but different stemming.(e.g."hadn't","hadn'","hasn't","haven'","haven't")
+
+```
+- spelling correction ( spelling correction is a useful pre-processing step because this also will help us in reducing multiple copies of words. For example, “Analytics” and “analytcs” will be treated as different words even if they are used in the same sense.)
 
 
 
