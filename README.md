@@ -169,7 +169,6 @@ eminem['uppercase_count']=eminem['text'].apply(lambda x:len([x for x in x.split(
 ##Lower Case
 eminem['text']=eminem['text'].apply(lambda x: " ".join(x.lower() for x in x.split()))
 
-
 ##Removing Punctuation
 eminem['text']=eminem['text'].str.replace('[^\w\s]','')
 
@@ -186,6 +185,16 @@ freq_least=pd.Series(' '.join(eminem['text']).split()).value_counts()[-10:]
 freq_least=list(freq_least.index)
 eminem['text']=eminem['text'].apply(lambda x: ' '.join([x for x in x.split() if x not in freq_least]))
 ```
+#### Freq_most: ['im', 'like', 'dont', 'get', 'know', 'got', 'cause', 'back', 'shit', 'fuck']
+#### Freq_least: ['peggin', 'curiosity', 'deaths', 'boones', 'sackltbr', 'melania', 'seavers', 'acclimated', 'heir', 'gossip']
+#### Stopwords: ['i', 'me', 'my', 'myself', 'won', ..., "won't", 'wouldn', "wouldn't"]
+
+### findings:
+1. Eminem uses a lot of negative words such as 'shit','fuck'. The most least frequent words are those word which is hard to put in rap lyrics because it seems to be hard to rhyme the flow.
+2. Eminem sounds contain total 179 stopwords, most of those stop word are in with the same root but different stemming.
+
+
+
 
 
 
